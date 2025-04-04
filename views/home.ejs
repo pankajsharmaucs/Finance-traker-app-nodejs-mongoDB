@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+  <% if (success) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <h2 class="text-center">Finance Tracker</h2>
+
+  <div class="row text-center my-4">
+    <div class="col-md-4">
+      <div class="card bg-success text-white p-3">
+        <h5>Total Income</h5>
+        <h3>₹ <%= income %></h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-danger text-white p-3">
+        <h5>Total Expense</h5>
+        <h3>₹ <%= expense %></h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-primary text-white p-3">
+        <h5>Balance</h5>
+        <h3>₹ <%= balance %></h3>
+      </div>
+    </div>
+  </div>
+
+  <form action="/add" method="POST" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-2">
+        <select name="type" class="form-select" required>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <input type="number" name="amount" class="form-control" placeholder="Amount" required />
+      </div>
+      <div class="col-md-2">
+        <select name="category" class="form-select">
+          <option value="Salary">Salary</option>
+          <option value="Food">Food</option>
+          <option value="Rent">Rent</option>
+          <option value="Bills">Bills</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="description" class="form-control" placeholder="Description" />
+      </div>
+      <div class="col-md-2">
+        <input type="date" name="date" class="form-control" />
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-success w-100">Add</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% transactions.forEach(t => { %>
+        <tr>
+          <td><%= new Date(t.date).toLocaleDateString() %></td>
+          <td><%= t.type %></td>
+          <td>₹ <%= t.amount %></td>
+          <td><%= t.category %></td>
+          <td><%= t.description %></td>
+          <td>
+            <a href="/delete/<%= t._id %>" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

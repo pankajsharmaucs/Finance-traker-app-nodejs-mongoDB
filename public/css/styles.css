@@ -1,0 +1,17 @@
+body {
+    background-color: #f7f9fb;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 15px;
+  }
+  
+  table {
+    background-color: white;
+  }
+  
+  th {
+    background-color: #e9ecef;
+  }
+  
