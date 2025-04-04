@@ -1,0 +1,41 @@
+<%- include("partials/header") %>
+
+<div class="container my-4">
+  <h2 class="text-center">💸 Finance Tracker</h2>
+
+  <div class="row text-center mb-3">
+    <div class="col text-success">Income: ₹<%= income %></div>
+    <div class="col text-danger">Expense: ₹<%= expense %></div>
+    <div class="col text-primary">Balance: ₹<%= balance %></div>
+  </div>
+
+  <form action="/add" method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <select name="type" class="form-select" required>
+        <option value="">Type</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <input type="number" name="amount" class="form-control" placeholder="Amount" required />
+    </div>
+    <div class="col-md-4">
+      <input type="text" name="description" class="form-control" placeholder="Description" required />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100">Add</button>
+    </div>
+  </form>
+
+  <ul class="list-group">
+    <% transactions.forEach(t => { %>
+      <li class="list-group-item d-flex justify-content-between">
+        ₹<%= t.amount %> - <%= t.description %>
+        <a href="/delete/<%= t._id %>" class="btn btn-sm btn-danger">Delete</a>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+<%- include("partials/footer") %>
